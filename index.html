@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f7fb" />
+  <meta name="description" content="Perpustakaan materi kuliah pribadi dengan ringkasan, infografik, dan kuis." />
+  <title>Ruang Belajar — Materi Kuliah</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Ruang Belajar, beranda">
+      <span class="brand-mark"><span>rb</span></span>
+      <span class="brand-copy"><strong>ruang<span>belajar.</span></strong><small>arsip materi pribadimu</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Navigasi utama">
+      <a class="active" href="index.html">Beranda</a>
+      <a href="#daftar-mata-kuliah">Mata Kuliah</a>
+      <a href="#cara-belajar">Cara Belajar</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" id="themeToggle" aria-label="Ganti tema" title="Ganti tema">☼</button>
+      <a class="avatar" href="#tentang" aria-label="Tentang website">S</a>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero home-hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> RUANG BELAJAR PRIBADI</div>
+        <h1>Belajar lebih mudah,<br /><span>pahami satu per satu.</span></h1>
+        <p>Simpan semua materi kuliah di satu tempat. Baca ringkasan, pahami infografik, lalu uji pemahamanmu dengan kuis singkat.</p>
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#daftar-mata-kuliah">Jelajahi materi <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="mata-kuliah/crm/index.html">Lanjut belajar CRM <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-proof"><div class="mini-avatars"><span>📘</span><span>🧠</span><span>✨</span></div><span><strong>Belajar dengan caramu</strong><br /><small>Materi, visual, dan latihan dalam satu alur</small></span></div>
+      </div>
+      <div class="hero-visual" aria-label="Ilustrasi belajar"><div class="visual-orbit orbit-a"></div><div class="visual-orbit orbit-b"></div><div class="floating-note note-top"><span class="note-icon purple">✦</span><span><b>Belajar visual</b><small>Konsep lebih mudah diingat</small></span></div><div class="book-stack"><div class="book book-back"></div><div class="book book-mid"></div><div class="book book-front"><div class="book-spark">✦</div><div class="book-title">IDEA<br /><span>TO INSIGHT</span></div><div class="book-lines"></div></div><div class="pencil"></div></div><div class="floating-note note-bottom"><span class="note-icon mint">✓</span><span><b>Progres tersimpan</b><small>Lanjutkan kapan saja</small></span></div><div class="hero-spark spark-one">✦</div><div class="hero-spark spark-two">✧</div></div>
+    </section>
+
+    <section class="stats-grid" aria-label="Ringkasan materi">
+      <article class="stat-card"><span class="stat-icon blue">▤</span><div><strong>2</strong><span>Mata kuliah dimulai</span></div><span class="stat-trail">CRM & DW</span></article>
+      <article class="stat-card"><span class="stat-icon violet">◉</span><div><strong>2 / 32</strong><span>Pertemuan tersedia</span></div><span class="stat-trail">+ bertahap</span></article>
+      <article class="stat-card"><span class="stat-icon orange">✦</span><div><strong>6</strong><span>Infografik edukatif</span></div><span class="stat-trail">Visual belajar</span></article>
+      <article class="stat-card"><span class="stat-icon green">✓</span><div><strong id="completedCount">0</strong><span>Materi ditandai selesai</span></div><span class="stat-trail">Progresmu</span></article>
+    </section>
+
+    <section class="content-section" id="daftar-mata-kuliah">
+      <div class="section-heading"><div><div class="eyebrow">MULAI DARI SINI</div><h2>Perpustakaan materi</h2><p>Pilih mata kuliah untuk melihat materi per pertemuan.</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="courseSearch" type="search" placeholder="Cari mata kuliah..." aria-label="Cari mata kuliah" /><kbd>⌘ K</kbd></label></div>
+      <div class="course-grid" id="courseGrid">
+        <article class="course-card course-featured" data-search="customer relationship management crm pelanggan bisnis komunikasi">
+          <div class="course-art crm-art"><div class="art-glow"></div><div class="art-bubble bubble-left">♡</div><div class="art-bubble bubble-right">↗</div><div class="art-screen"><div class="screen-top"><i></i><i></i><i></i></div><div class="screen-avatar">☺</div><div class="screen-lines"><i></i><i></i><i></i></div><div class="screen-chart"><b></b><b></b><b></b><b></b><b></b></div></div><div class="art-person"><div class="person-hair"></div><div class="person-face"><span class="eye eye-a"></span><span class="eye eye-b"></span><span class="smile"></span></div><div class="person-body"></div></div><span class="art-label">CUSTOMER FIRST</span></div>
+          <div class="course-card-body"><div class="course-meta"><span class="tag tag-blue">Sistem Informasi</span><span class="course-dots">•••</span></div><h3>Customer Relationship Management</h3><p>Memahami cara bisnis membangun, menjaga, dan mengembangkan hubungan dengan pelanggan.</p><div class="course-progress"><div><span>Progres materi</span><strong id="crmProgressText">0%</strong></div><div class="progress-track"><span id="crmProgressBar" style="width:0%"></span></div></div><a class="course-link" href="mata-kuliah/crm/index.html">Buka mata kuliah <span>↗</span></a></div>
+        </article>
+
+        <article class="course-card course-featured" data-search="data warehousing and data mining data warehouse data mining dw dm olap oltp etl ods metadata basis data analitis arsitektur">
+          <div class="course-art dw-art">
+            <div class="art-glow"></div>
+            <div class="dw-art-stack">
+              <div class="db-cylinder">TOP TIER (BI)</div>
+              <div class="db-cylinder tier-ods">ODS / STAGING</div>
+              <div class="db-cylinder tier-dw">DATA WAREHOUSE</div>
+            </div>
+            <div class="dw-art-cube" title="OLAP Cube Multidimensional">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+            </div>
+            <div class="dw-etl-badge"><span>⚡</span> ETL Pipeline</div>
+          </div>
+          <div class="course-card-body">
+            <div class="course-meta"><span class="tag tag-purple">Sistem Informasi</span><span class="course-dots">•••</span></div>
+            <h3>Data Warehousing & Data Mining</h3>
+            <p>Konsep dasar Data Warehouse, arsitektur tiga tingkat, komparasi OLTP vs OLAP, alur ETL, ODS, dan metadata.</p>
+            <div class="course-progress">
+              <div><span>Progres materi</span><strong id="dwProgressText">0%</strong></div>
+              <div class="progress-track"><span id="dwProgressBar" style="width:0%"></span></div>
+            </div>
+            <a class="course-link" href="mata-kuliah/data-warehousing-data-mining/index.html">Buka mata kuliah <span>↗</span></a>
+          </div>
+        </article>
+
+        <article class="course-card course-add" data-search="tambah mata kuliah materi berikutnya semester 7">
+          <div class="add-illustration"><div class="add-circle">＋</div><span class="add-star star-a">✦</span><span class="add-star star-b">✧</span><div class="add-orbit"></div></div>
+          <div class="course-card-body"><span class="tag tag-muted">Nanti</span><h3>Mata kuliah berikutnya</h3><p>Tempat untuk materi kuliah lain. Tambahkan saat file materinya sudah siap.</p><span class="muted-note"><span class="status-dot"></span> Belum ditambahkan</span></div>
+        </article>
+      </div>
+      <div class="empty-state" id="emptySearch" hidden>Tidak ada mata kuliah yang cocok dengan pencarianmu.</div>
+    </section>
+
+    <section class="content-section learning-section" id="cara-belajar">
+      <div class="section-heading"><div><div class="eyebrow">ALUR BELAJAR</div><h2>Belajar dengan 3 langkah</h2><p>Urutan sederhana agar tidak hanya membaca, tetapi juga memahami.</p></div></div>
+      <div class="steps-grid"><article class="step-card"><div class="step-top"><span class="step-number">01</span><span class="step-emoji">📖</span></div><h3>Baca ringkasan</h3><p>Kenali ide utama dan istilah penting dari materi dosen.</p></article><article class="step-card"><div class="step-top"><span class="step-number">02</span><span class="step-emoji">🎨</span></div><h3>Lihat infografik</h3><p>Hubungkan konsep dengan ilustrasi dan contoh penerapannya.</p></article><article class="step-card"><div class="step-top"><span class="step-number">03</span><span class="step-emoji">🧩</span></div><h3>Kerjakan kuis</h3><p>Uji pemahamanmu dan ulangi bagian yang masih membingungkan.</p></article></div>
+    </section>
+
+    <section class="bottom-cta" id="tentang"><div class="cta-symbol">✦</div><div><h2>Materi rapi, pikiran lebih siap.</h2><p>Website ini menyimpan materi belajar secara lokal dan bisa dikembangkan seiring bertambahnya pertemuan.</p></div><a class="button button-light" href="mata-kuliah/crm/index.html">Mulai dari CRM <span>→</span></a></section>
+    <footer class="site-footer"><a class="brand brand-small" href="index.html"><span class="brand-mark"><span>rb</span></span><span class="brand-copy"><strong>ruang<span>belajar.</span></strong></span></a><p>Dibuat untuk membantu proses belajar, satu pertemuan dalam satu waktu.</p><span>© <span id="year"></span> Ruang Belajar</span></footer>
+  </main>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

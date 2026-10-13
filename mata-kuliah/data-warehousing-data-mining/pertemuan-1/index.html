@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f7fb" />
+  <meta name="description" content="Materi Pertemuan 1 Data Warehousing & Data Mining: Konsep dasar, William H. Inmon, komparasi OLTP vs OLAP, arsitektur 3-tier, ODS, alur ETL, metadata, infografik, dan kuis." />
+  <title>Pertemuan 1: Konsep Dasar &amp; Rancangan Data Warehousing — Ruang Belajar</title>
+  <link rel="stylesheet" href="../../../assets/css/styles.css" />
+</head>
+<body class="inner-page lesson-page dw-lesson">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="site-header">
+    <a class="brand" href="../../../index.html" aria-label="Ruang Belajar, beranda">
+      <span class="brand-mark"><span>rb</span></span>
+      <span class="brand-copy"><strong>ruang<span>belajar.</span></strong><small>arsip materi pribadimu</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Navigasi utama">
+      <a href="../../../index.html">Beranda</a>
+      <a class="active" href="../index.html">Mata Kuliah</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-button" id="themeToggle" aria-label="Ganti tema" title="Ganti tema">☼</button>
+      <a class="avatar" href="../../../index.html" aria-label="Profil Ruang Belajar">S</a>
+    </div>
+  </header>
+
+  <main class="page-shell lesson-layout">
+    <div class="breadcrumbs">
+      <a href="../../../index.html">Beranda</a>
+      <span>/</span>
+      <a href="../index.html">Data Warehousing &amp; Data Mining</a>
+      <span>/</span>
+      <strong>Pertemuan 1</strong>
+    </div>
+
+    <section class="lesson-hero">
+      <div class="lesson-hero-main">
+        <div class="lesson-tags">
+          <span class="tag tag-purple">PERTEMUAN 01</span>
+          <span class="tag tag-green">MATERI LENGKAP</span>
+        </div>
+        <h1>Konsep Dasar &amp;<br /><span>Rancangan Data Warehousing</span></h1>
+        <p>Memahami fondasi basis data terpusat, karakteristik William H. Inmon, komparasi OLTP vs OLAP, arsitektur tiga tingkat, proses ETL, peran ODS, serta klasifikasi metadata.</p>
+        <div class="lesson-byline">
+          <span class="byline-icon">📊</span>
+          <div>
+            <b>Data Warehousing and Data Mining — Week 1</b>
+            <small>Berdasarkan Lecturer Note resmi &amp; Infografik Bab 1</small>
+          </div>
+        </div>
+        <div class="lesson-actions">
+          <a class="button button-primary" href="#materi">Mulai belajar <span>↓</span></a>
+          <button class="button button-quiet" data-image="../../../assets/images/dw-01-konsep-dasar.png">Poster Lengkap <span>↗</span></button>
+          <a class="button button-quiet" href="../../../assets/dokumen/materi-data-warehouse-mining-pertemuan-1.pdf" target="_blank" rel="noopener">Buka PDF asli <span>↗</span></a>
+        </div>
+      </div>
+
+      <div class="lesson-hero-side">
+        <div class="lesson-orb orb-blue"></div>
+        <div class="lesson-orb orb-purple"></div>
+        <div class="lesson-book" style="background: linear-gradient(150deg, #2b5fdc, #1fa37c);">
+          <span class="lesson-book-icon">🏛️</span>
+          <b style="font-size: 28px;">DW&amp;DM</b>
+          <small>Data to Insight</small>
+          <div class="lesson-book-lines"><i></i><i></i><i></i></div>
+        </div>
+        <div class="lesson-sticker sticker-one">OLAP Analysis 📈</div>
+        <div class="lesson-sticker sticker-two">ETL Pipeline ⚡</div>
+      </div>
+    </section>
+
+    <div class="lesson-progress-panel">
+      <div class="progress-panel-copy">
+        <div class="progress-check">✓</div>
+        <div>
+          <strong>Progres belajarmu</strong>
+          <p id="progressSummary">Tandai bagian yang sudah kamu pelajari untuk memantau pemahaman.</p>
+        </div>
+      </div>
+      <div class="progress-panel-meter">
+        <div class="meter-label">
+          <span id="lessonProgressLabel">0 dari 8 bagian</span>
+          <strong id="lessonProgressPercent">0%</strong>
+        </div>
+        <div class="progress-track"><span id="lessonProgressBar" style="width:0%"></span></div>
+      </div>
+    </div>
+
+    <div class="lesson-content-layout" id="materi">
+      <aside class="lesson-sidebar">
+        <div class="sidebar-label">ISI PERTEMUAN 1</div>
+        <nav class="lesson-toc">
+          <a class="toc-link active" href="#subcpmk"><span>01</span> Capaian Pembelajaran</a>
+          <a class="toc-link" href="#karakteristik"><span>02</span> Karakteristik DW</a>
+          <a class="toc-link" href="#oltp-olap"><span>03</span> OLTP vs OLAP</a>
+          <a class="toc-link" href="#arsitektur"><span>04</span> Arsitektur 3 Tingkat</a>
+          <a class="toc-link" href="#ods"><span>05</span> ODS &amp; Ragam Model</a>
+          <a class="toc-link" href="#etl"><span>06</span> Alur Proses ETL</a>
+          <a class="toc-link" href="#metadata"><span>07</span> Kategori Metadata</a>
+          <a class="toc-link" href="#rangkuman"><span>08</span> Rangkuman &amp; Latihan</a>
+          <a class="toc-link toc-quiz" href="#kuis"><span>✦</span> Kuis pemahaman</a>
+        </nav>
+        <div class="sidebar-tip">
+          <span>💡</span>
+          <strong>Tips belajar</strong>
+          <p>Perhatikan perbedaan esensial antara OLTP (transaksi) dan OLAP (analisis), serta bagaimana alur ETL menjembatani keduanya.</p>
+        </div>
+      </aside>
+
+      <div class="lesson-main">
+        <!-- 01 Capaian Pembelajaran -->
+        <section class="lesson-section" id="subcpmk" data-section="subcpmk">
+          <div class="section-kicker"><span>01</span><span>CAPAIAN PEMBELAJARAN</span></div>
+          <h2>Capaian Pembelajaran Bab (Sub-CPMK 1)</h2>
+          <p class="lead-text">Di awal pertemuan ini, mahasiswa diarahkan untuk memahami kompetensi inti yang harus dikuasai pada Bab 1 Konsep Dasar dan Rancangan Data Warehousing.</p>
+          <div class="concept-callout">
+            <span class="callout-icon">🎯</span>
+            <div>
+              <strong>Sub-CPMK 1</strong>
+              <p>Mahasiswa mampu menjelaskan konsep dasar Data Warehouse, arsitektur, Operational Data Store (ODS), proses Extraction Transformation Loading (ETL), serta peran dan kategori metadata.</p>
+            </div>
+          </div>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-01-capaian-subcpmk.png" aria-label="Perbesar infografik Capaian Pembelajaran Sub-CPMK 1">
+              <img src="../../../assets/images/dw-01-capaian-subcpmk.png" alt="Infografik Point 1: Capaian Pembelajaran Bab Sub-CPMK 1 Data Warehousing" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 1</span> Capaian Pembelajaran Bab (Sub-CPMK 1)
+              <button class="caption-expand" data-image="../../../assets/images/dw-01-capaian-subcpmk.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <button class="mark-done" data-done="subcpmk"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 02 Karakteristik Data Warehouse -->
+        <section class="lesson-section" id="karakteristik" data-section="karakteristik">
+          <div class="section-kicker"><span>02</span><span>FONDASI TEORI</span></div>
+          <h2>1.1 Pengertian dan Karakteristik Data Warehouse</h2>
+          <p class="lead-text">Dalam era transformasi digital, volume data yang dikumpulkan organisasi melonjak sangat pesat. Tantangan terbesarnya bukan kekurangan data, melainkan mengekstraksi pengetahuan dan wawasan bisnis yang bernilai dari timbunan data tersebut.</p>
+
+          <div class="quote-callout">
+            <p>"A subject-oriented, integrated, time-variant, and nonvolatile collection of data in support of management's decision making process."</p>
+            <cite>— William H. Inmon (Bapak Data Warehouse)</cite>
+          </div>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-02-karakteristik-dw.png" aria-label="Perbesar infografik Pengertian dan Karakteristik Data Warehouse">
+              <img src="../../../assets/images/dw-02-karakteristik-dw.png" alt="Infografik Point 1.1: Pengertian dan 4 Karakteristik Utama Data Warehouse" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 1.1</span> Pengertian &amp; 4 Karakteristik Utama Data Warehouse
+              <button class="caption-expand" data-image="../../../assets/images/dw-02-karakteristik-dw.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <h3>Empat Karakteristik Utama Data Warehouse</h3>
+          <div class="reason-grid">
+            <article>
+              <span class="reason-icon reason-orange">🎯</span>
+              <strong>Berorientasi Subjek</strong>
+              <p>Data disusun berdasarkan subjek bisnis utama (pelanggan, produk, penjualan, pemasok), bukan berpatokan pada proses aplikasi harian.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-green">🔗</span>
+              <strong>Terintegrasi</strong>
+              <p>Data digabungkan dari berbagai sumber heterogen dengan pembersihan dan penyelarasan penamaan, kode, serta ukuran atribut.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-purple">⏱️</span>
+              <strong>Bervariasi Waktu</strong>
+              <p>Data disimpan dalam rentang historis panjang (5–10 tahun). Setiap struktur kunci selalu memuat elemen waktu eksplisit maupun implisit.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-pink">🔒</span>
+              <strong>Non-Volatile</strong>
+              <p>Data yang telah dimuat bersifat permanen dan tidak mengalami perubahan real-time; operasi utama hanyalah initial loading dan read-only access.</p>
+            </article>
+          </div>
+
+          <button class="mark-done" data-done="karakteristik"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 03 OLTP vs OLAP -->
+        <section class="lesson-section" id="oltp-olap" data-section="oltp-olap">
+          <div class="section-kicker"><span>03</span><span>KOMPARASI SISTEM</span></div>
+          <h2>1.2 Perbedaan OLTP dan OLAP</h2>
+          <p class="lead-text">Untuk memahami fungsi Data Warehouse, kita harus membedakan sistem On-Line Transaction Processing (OLTP) dengan On-Line Analytical Processing (OLAP).</p>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-03-perbedaan-oltp-olap.png" aria-label="Perbesar infografik Perbedaan OLTP dan OLAP">
+              <img src="../../../assets/images/dw-03-perbedaan-oltp-olap.png" alt="Infografik Point 1.2: Perbedaan Sistem OLTP dan OLAP" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 1.2</span> Komparasi Fokus Sistem: OLTP vs OLAP
+              <button class="caption-expand" data-image="../../../assets/images/dw-03-perbedaan-oltp-olap.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="compare-grid">
+            <article class="compare-card compare-blue">
+              <span class="compare-label">OLTP (OPERASIONAL)</span>
+              <h3>Pemrosesan Transaksi Harian</h3>
+              <p>Fokus pada transaksi rutin yang cepat dan berulang.</p>
+              <ul>
+                <li>Transaksi kasir, perbankan, registrasi, penggajian</li>
+                <li>Operasi baca/tulis rutin (read &amp; write)</li>
+                <li>Menjaga konsistensi data transaksi saat ini (current)</li>
+              </ul>
+              <div class="compare-example">Pengguna: Kasir, staf administrasi, DBA, praktisi IT.</div>
+            </article>
+
+            <article class="compare-card compare-purple">
+              <span class="compare-label">OLAP (ANALITIS)</span>
+              <h3>Pemrosesan Informasi &amp; Analisis</h3>
+              <p>Fokus pada analisis data historis dan penyajian multidimensi.</p>
+              <ul>
+                <li>Analisis tren pasar, segmentasi, peramalan bisnis</li>
+                <li>Kueri kompleks dengan pembacaan scan luas (mostly read-only)</li>
+                <li>Mendukung pengambilan keputusan strategis manajemen</li>
+              </ul>
+              <div class="compare-example">Pengguna: Manajer, eksekutif, dan analis data.</div>
+            </article>
+          </div>
+
+          <h3>Tabel 1.1 Komparasi Antara Sistem OLTP dan OLAP</h3>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-04-tabel-komparasi.png" aria-label="Perbesar infografik Tabel Komparasi OLTP dan OLAP">
+              <img src="../../../assets/images/dw-04-tabel-komparasi.png" alt="Infografik Point Tabel 1.1: Komparasi Lengkap Antara Sistem OLTP dan OLAP" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Tabel 1.1</span> Rangkuman Visual Tabel Komparasi OLTP &amp; OLAP
+              <button class="caption-expand" data-image="../../../assets/images/dw-04-tabel-komparasi.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="table-container">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th class="col-feature">Fitur / Aspek</th>
+                  <th class="col-oltp">OLTP (On-Line Transaction Processing)</th>
+                  <th class="col-olap">OLAP (On-Line Analytical Processing)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-feature">Karakteristik</td>
+                  <td class="cell-oltp">Pemrosesan operasional harian</td>
+                  <td class="cell-olap">Pemrosesan informasi &amp; analisis</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Orientasi Sistem</td>
+                  <td class="cell-oltp">Transaksi (customer-oriented)</td>
+                  <td class="cell-olap">Analisis pasar (market-oriented)</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Pengguna Utama</td>
+                  <td class="cell-oltp">Kasir, staf administrasi, DBA, praktisi IT</td>
+                  <td class="cell-olap">Manajer, eksekutif, dan analis data</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Desain Basis Data</td>
+                  <td class="cell-oltp">Berorientasi aplikasi / Entity-Relationship (ER)</td>
+                  <td class="cell-olap">Berorientasi subjek / Skema Bintang &amp; Salju</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Sifat Data</td>
+                  <td class="cell-oltp">Data saat ini (current), rinci (detailed)</td>
+                  <td class="cell-olap">Data historis, teragregasi &amp; tersimpul (summarized)</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Pola Akses Data</td>
+                  <td class="cell-oltp">Transaksi pendek, read/write, pembaruan rutin</td>
+                  <td class="cell-olap">Kueri kompleks, scan data luas, mostly read-only</td>
+                </tr>
+                <tr>
+                  <td class="cell-feature">Ukuran Basis Data</td>
+                  <td class="cell-oltp">Megabyte (MB) hingga Gigabyte (GB)</td>
+                  <td class="cell-olap">Gigabyte (GB) hingga Terabyte (TB)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-05-alasan-pemisahan.png" aria-label="Perbesar infografik Mengapa Harus Memisahkan Data Warehouse">
+              <img src="../../../assets/images/dw-05-alasan-pemisahan.png" alt="Infografik Point 5: Mengapa Harus Memisahkan Data Warehouse dari Basis Data Operasional" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 5</span> Mengapa Harus Memisahkan DW dari Basis Data Operasional?
+              <button class="caption-expand" data-image="../../../assets/images/dw-05-alasan-pemisahan.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="concept-callout">
+            <span class="callout-icon">⚠️</span>
+            <div>
+              <strong>Mengapa Harus Memisahkan Data Warehouse dari Basis Data Operasional?</strong>
+              <p>Menjalankan kueri analisis OLAP yang kompleks langsung di atas basis data operasional (OLTP) akan menurunkan performa sistem transaksi secara drastis! Basis data operasional dioptimalkan untuk pencarian rekor individu dan transaksi cepat, sedangkan Data Warehouse dioptimalkan untuk pemrosesan agregasi dan pemindaian data berskala besar.</p>
+            </div>
+          </div>
+
+          <button class="mark-done" data-done="oltp-olap"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 04 Arsitektur Tiga Tingkat -->
+        <section class="lesson-section" id="arsitektur" data-section="arsitektur">
+          <div class="section-kicker"><span>04</span><span>STRUKTUR SISTEM</span></div>
+          <h2>1.3 Arsitektur Tiga Tingkat (Three-Tier Architecture)</h2>
+          <p class="lead-text">Secara umum, Data Warehouse mengadopsi arsitektur tiga tingkat untuk memisahkan lapisan penyimpanan fisik, server komputasi analitis, dan antarmuka pengguna.</p>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-06-arsitektur-tiga-tingkat.png" aria-label="Perbesar infografik Arsitektur Tiga Tingkat Data Warehouse">
+              <img src="../../../assets/images/dw-06-arsitektur-tiga-tingkat.png" alt="Infografik Point 1.3: Arsitektur Data Warehouse Tiga Tingkat dan ODS" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 1.3</span> Arsitektur Tiga Tingkat (Three-Tier Architecture) &amp; ODS
+              <button class="caption-expand" data-image="../../../assets/images/dw-06-arsitektur-tiga-tingkat.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="tier-cards">
+            <div class="tier-card">
+              <div class="tier-badge tier-top-badge">
+                <span>TOP TIER</span>
+                <small style="display:block; font-size:10px; font-weight:700;">Front-End Tools</small>
+              </div>
+              <div class="tier-info">
+                <h4>Lapisan Antarmuka &amp; Analisis (Front-End)</h4>
+                <p>Menyediakan perkakas pelaporan (query &amp; reporting tools), dashboard visual, alat analisis bisnis, serta perkakas Data Mining untuk pengguna akhir.</p>
+                <div class="tier-tags">
+                  <span>Aplikasi BI</span>
+                  <span>Dashboard Eksekutif</span>
+                  <span>Perkakas Data Mining</span>
+                  <span>End User</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tier-card">
+              <div class="tier-badge tier-mid-badge">
+                <span>MIDDLE TIER</span>
+                <small style="display:block; font-size:10px; font-weight:700;">OLAP Server</small>
+              </div>
+              <div class="tier-info">
+                <h4>Server OLAP (Business Logic Engine)</h4>
+                <p>Memetakan struktur data multidimensi ke pengguna dan memproses kueri analitis. Diimplementasikan menggunakan model ROLAP (Relational OLAP), MOLAP (Multidimensional OLAP), atau HOLAP (Hybrid OLAP).</p>
+                <div class="tier-tags">
+                  <span>ROLAP</span>
+                  <span>MOLAP</span>
+                  <span>HOLAP Engine</span>
+                  <span>Query Processing</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tier-card">
+              <div class="tier-badge tier-bot-badge">
+                <span>BOTTOM TIER</span>
+                <small style="display:block; font-size:10px; font-weight:700;">DW Database Server</small>
+              </div>
+              <div class="tier-info">
+                <h4>Server Basis Data Warehouse (Fisik &amp; Staging)</h4>
+                <p>Tempat penyimpanan data fisik yang dilengkapi back-end tools dan gateway (ODBC, OLEDB, JDBC) untuk mengekstrak data dari basis data operasional dan sumber eksternal. Di lapisan ini juga terdapat staging area dan metadata repository.</p>
+                <div class="tier-tags">
+                  <span>Staging Area</span>
+                  <span>ODS</span>
+                  <span>Metadata Repository</span>
+                  <span>Gateways (JDBC/ODBC)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="mark-done" data-done="arsitektur"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 05 ODS & Ragam Model DW -->
+        <section class="lesson-section" id="ods" data-section="ods">
+          <div class="section-kicker"><span>05</span><span>AREA PERANTARA &amp; MODEL</span></div>
+          <h2>Operational Data Store (ODS) &amp; Ragam Model DW</h2>
+          <p class="lead-text">Operational Data Store (ODS) adalah area basis data logis sementara (interim area) yang digunakan sebelum data dimuat ke dalam Data Warehouse.</p>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-08-operational-data-store.png" aria-label="Perbesar infografik Operational Data Store">
+              <img src="../../../assets/images/dw-08-operational-data-store.png" alt="Infografik Point 3: Operational Data Store ODS" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 3</span> Operational Data Store (ODS) &amp; Alur Penyimpanan Sementara
+              <button class="caption-expand" data-image="../../../assets/images/dw-08-operational-data-store.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="bullet-cards">
+            <article>
+              <span>🧼</span>
+              <div>
+                <strong>Pembersihan &amp; Integrasi Data</strong>
+                <p>Di dalam ODS, data dari berbagai sumber dikumpulkan, dibersihkan (scrubbed), dicek aturan bisnisnya, dan dihilangkan redundansinya.</p>
+              </div>
+            </article>
+            <article>
+              <span>🧠</span>
+              <div>
+                <strong>Analogi Memori Jangka Pendek vs Panjang</strong>
+                <p>ODS dianalogikan sebagai <em>short-term memory</em> (hanya menyimpan data operasional terkini), sedangkan Data Warehouse adalah <em>long-term memory</em> (menyimpan data historis permanen).</p>
+              </div>
+            </article>
+          </div>
+
+          <h3>Ragam Model Data Warehouse</h3>
+          <div class="reason-grid">
+            <article>
+              <span class="reason-icon reason-purple">🏢</span>
+              <strong>Enterprise Warehouse</strong>
+              <p>Mengumpulkan seluruh informasi organisasi lintas fungsi dan bidang bisnis secara menyeluruh.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-green">📦</span>
+              <strong>Independent Data Mart</strong>
+              <p>Data mart yang bersumber langsung dari sistem operasional tanpa melalui enterprise warehouse.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-orange">🎯</span>
+              <strong>Dependent Data Mart</strong>
+              <p>Data mart yang bersumber langsung dari enterprise warehouse untuk unit atau departemen spesifik.</p>
+            </article>
+            <article>
+              <span class="reason-icon reason-pink">☁️</span>
+              <strong>Virtual Warehouse</strong>
+              <p>Kumpulan views di atas basis data operasional tanpa membutuhkan penyimpanan fisik terpisah.</p>
+            </article>
+          </div>
+
+          <button class="mark-done" data-done="ods"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 06 Alur Proses ETL -->
+        <section class="lesson-section" id="etl" data-section="etl">
+          <div class="section-kicker"><span>06</span><span>INTEGRASI DATA</span></div>
+          <h2>1.4 Proses Extraction, Transformation, and Loading (ETL)</h2>
+          <p class="lead-text">ETL merupakan alur kerja krusial untuk mengambil data dari berbagai sistem sumber operasional, mengubahnya sesuai kebutuhan analisis, dan memuatnya ke dalam Data Warehouse secara berkala.</p>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-07-proses-etl.png" aria-label="Perbesar infografik Proses ETL">
+              <img src="../../../assets/images/dw-07-proses-etl.png" alt="Infografik Point 2: Proses Extraction Transformation Loading ETL" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 2</span> Alur Kerja ETL &amp; Ragam Sumber Data Heterogen
+              <button class="caption-expand" data-image="../../../assets/images/dw-07-proses-etl.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="etl-grid">
+            <div class="etl-card etl-blue">
+              <div class="etl-card-header">
+                <span class="etl-icon">📥</span>
+                <h4>1. Extraction (Ekstraksi)</h4>
+              </div>
+              <p>Mengidentifikasi dan mengumpulkan data relevan dari berbagai basis data dan sistem aplikasi heterogen.</p>
+              <ul>
+                <li>Identifikasi sumber data relevan</li>
+                <li>Ekstraksi dari DB relasional, teks, CSV, transaksi</li>
+                <li>Volume bervariasi dari MB hingga GB</li>
+                <li>Metode delta atau full load</li>
+              </ul>
+            </div>
+
+            <div class="etl-card etl-green">
+              <div class="etl-card-header">
+                <span class="etl-icon">⚙️</span>
+                <h4>2. Transformation (Transformasi)</h4>
+              </div>
+              <p>Mengubah format data mentah agar sesuai dengan skema dan standar Data Warehouse.</p>
+              <ul>
+                <li>Pembersihan data (cleaning)</li>
+                <li>Standardisasi pengodean &amp; integrasi skema</li>
+                <li>Penanganan missing value (nilai hilang)</li>
+                <li>Pembuatan surrogate key melalui proses lookup</li>
+              </ul>
+            </div>
+
+            <div class="etl-card etl-purple">
+              <div class="etl-card-header">
+                <span class="etl-icon">📤</span>
+                <h4>3. Loading &amp; Refreshing</h4>
+              </div>
+              <p>Memuat data hasil transformasi ke dalam tabel fakta dan dimensi Data Warehouse.</p>
+              <ul>
+                <li>Pemuatan ke tabel fakta dan dimensi</li>
+                <li>Penyusunan indeks untuk optimasi kueri</li>
+                <li>Pembaruan agregasi data</li>
+                <li>Penjadwalan refresh data secara berkala</li>
+              </ul>
+            </div>
+          </div>
+
+          <button class="mark-done" data-done="etl"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 07 Metadata Repository -->
+        <section class="lesson-section" id="metadata" data-section="metadata">
+          <div class="section-kicker"><span>07</span><span>DIREKTORI DATA</span></div>
+          <h2>1.5 Metadata Repository dan Pengelolaannya</h2>
+          <p class="lead-text">Metadata secara sederhana didefinisikan sebagai <strong>"data mengenai data"</strong> (data about data). Dalam Data Warehouse, metadata berfungsi sebagai direktori dan road map yang memandu pengguna serta sistem untuk menemukan, memetakan, dan mengelola isi gudang data.</p>
+
+          <figure class="infographic-frame card-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-09-kategori-metadata.png" aria-label="Perbesar infografik Kategori Metadata">
+              <img src="../../../assets/images/dw-09-kategori-metadata.png" alt="Infografik Point 4: Peran dan Tiga Kategori Utama Metadata" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Infografik Point 4</span> Peran &amp; Tiga Kategori Utama Metadata
+              <button class="caption-expand" data-image="../../../assets/images/dw-09-kategori-metadata.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <h3>Tiga Kategori Utama Metadata</h3>
+          <div class="metadata-grid">
+            <div class="metadata-card">
+              <span class="meta-tag meta-biz">Business Metadata</span>
+              <h4>Metadata Bisnis</h4>
+              <p>Berisi definisi istilah bisnis, informasi kepemilikan data (data ownership), serta kebijakan perubahan aturan bisnis yang berlaku di organisasi.</p>
+            </div>
+            <div class="metadata-card">
+              <span class="meta-tag meta-tech">Technical Metadata</span>
+              <h4>Metadata Teknis</h4>
+              <p>Berisi nama sistem basis data, nama tabel dan kolom, tipe data, batasan nilai (constraints), struktur kunci utama/asing (primary/foreign keys), serta informasi skema data.</p>
+            </div>
+            <div class="metadata-card">
+              <span class="meta-tag meta-ops">Operational Metadata</span>
+              <h4>Metadata Operasional</h4>
+              <p>Berisi status aktualitas data (currency of data)—apakah data aktif, diarsipkan, atau dihapus—serta riwayat silsilah data (data lineage) proses migrasi dan transformasi.</p>
+            </div>
+          </div>
+
+          <div class="concept-callout">
+            <span class="callout-icon">📚</span>
+            <div>
+              <strong>Peran Metadata Repository</strong>
+              <p>Metadata Repository menyimpan deskripsi skema Data Warehouse, aturan pemetaan (mapping rules) dari lingkungan operasional ke DW, algoritma agregasi, profil performa sistem, serta riwayat penjadwalan refresh data.</p>
+            </div>
+          </div>
+
+          <button class="mark-done" data-done="metadata"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- 08 Rangkuman & Latihan -->
+        <section class="lesson-section" id="rangkuman" data-section="rangkuman">
+          <div class="section-kicker"><span>08</span><span>KESIMPULAN &amp; DISKUSI</span></div>
+          <h2>Rangkuman Bab 1 &amp; Latihan Soal Diskusi</h2>
+          <p class="lead-text">Berikut adalah ringkasan pokok materi beserta pertanyaan diskusi dari Lecturer Note Week 1 untuk menguji pemahaman konsepmu.</p>
+
+          <figure class="infographic-frame banner-infographic">
+            <button class="image-open" data-image="../../../assets/images/dw-10-banner-kesimpulan.png" aria-label="Perbesar banner kesimpulan Data Warehouse">
+              <img src="../../../assets/images/dw-10-banner-kesimpulan.png" alt="Banner Prinsip Data: Data yang tepat menuju Informasi yang akurat menuju Keputusan yang lebih baik" loading="lazy" />
+            </button>
+            <figcaption>
+              <span>Prinsip Esensial</span> Data yang tepat ➔ Informasi yang akurat ➔ Keputusan yang lebih baik
+              <button class="caption-expand" data-image="../../../assets/images/dw-10-banner-kesimpulan.png">Perbesar ↗</button>
+            </figcaption>
+          </figure>
+
+          <div class="summary-box">
+            <h3 style="margin-top:0;">Poin Kunci Rangkuman</h3>
+            <ul class="summary-list">
+              <li><strong>Data Warehouse</strong> adalah repositori data terpusat yang bersifat <em>subject-oriented</em>, <em>integrated</em>, <em>time-variant</em>, dan <em>nonvolatile</em> untuk mendukung pengambilan keputusan.</li>
+              <li>Sistem <strong>OLTP</strong> melayani transaksi operasional harian (read/write), sedangkan sistem <strong>OLAP</strong> melayani kueri analisis multidimensi historis (mostly read-only).</li>
+              <li>Arsitektur Data Warehouse terdiri dari tiga tingkat: <strong>Bottom Tier</strong> (server database &amp; ODS), <strong>Middle Tier</strong> (server OLAP), dan <strong>Top Tier</strong> (front-end tools &amp; Data Mining).</li>
+              <li>Proses <strong>ETL</strong> (Extraction, Transformation, Loading) adalah tahapan utama dalam mengintegrasikan data heterogen ke dalam Data Warehouse.</li>
+              <li><strong>Metadata</strong> bertindak sebagai direktori yang mencatat informasi bisnis, teknis, dan operasional seluruh objek dalam Data Warehouse.</li>
+            </ul>
+          </div>
+
+          <h3>1.7 Latihan Soal dan Diskusi dari Dosen</h3>
+          <div class="discussion-list">
+            <div class="discussion-item">
+              <span class="discussion-num">1</span>
+              <p>Jelaskan perbedaan mendasar antara sistem OLTP dan OLAP ditinjau dari aspek orientasi pengguna, sifat data, dan pola akses kueri!</p>
+            </div>
+            <div class="discussion-item">
+              <span class="discussion-num">2</span>
+              <p>Mengapa proses analisis OLAP tidak direkomendasikan untuk dijalankan langsung di atas basis data operasional (OLTP)?</p>
+            </div>
+            <div class="discussion-item">
+              <span class="discussion-num">3</span>
+              <p>Uraikan empat karakteristik utama Data Warehouse menurut William H. Inmon!</p>
+            </div>
+            <div class="discussion-item">
+              <span class="discussion-num">4</span>
+              <p>Jelaskan peran Operational Data Store (ODS) dalam arsitektur Data Warehouse dan bagaimana hubungannya dengan proses ETL!</p>
+            </div>
+            <div class="discussion-item">
+              <span class="discussion-num">5</span>
+              <p>Sebutkan dan jelaskan tiga kategori metadata dalam Data Warehouse beserta contoh informasinya masing-masing!</p>
+            </div>
+          </div>
+
+          <button class="mark-done" data-done="rangkuman"><span>✓</span> Tandai bagian ini selesai</button>
+        </section>
+
+        <!-- Kuis Pemahaman Interaktif -->
+        <section class="lesson-section quiz-section" id="kuis">
+          <div class="section-kicker"><span>✦</span><span>CEK PEMAHAMAN</span></div>
+          <h2>Kuis Pertemuan 1: Data Warehousing</h2>
+          <p class="lead-text">Pilih jawaban yang paling tepat berdasarkan materi perkuliahan di atas. Skor dan ulasan jawaban akan muncul setelah kamu menekan tombol periksa.</p>
+
+          <form id="quizForm" class="quiz-form">
+            <fieldset class="quiz-question">
+              <legend><span>1</span> Menurut William H. Inmon, empat karakteristik utama Data Warehouse adalah...</legend>
+              <label>
+                <input type="radio" name="q1" value="a" />
+                <span>Subject-oriented, integrated, time-variant, dan nonvolatile</span>
+              </label>
+              <label>
+                <input type="radio" name="q1" value="b" />
+                <span>Application-oriented, temporary, volatile, dan real-time update</span>
+              </label>
+              <label>
+                <input type="radio" name="q1" value="c" />
+                <span>Single-table, normalized, volatile, dan customer-oriented</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend><span>2</span> Perbedaan mendasar antara sistem OLTP dan OLAP adalah...</legend>
+              <label>
+                <input type="radio" name="q2" value="a" />
+                <span>OLTP untuk analisis eksekutif, sedangkan OLAP untuk kasir toko</span>
+              </label>
+              <label>
+                <input type="radio" name="q2" value="b" />
+                <span>OLTP berfokus pada transaksi operasional harian, sedangkan OLAP berfokus pada analisis data historis multidimensi</span>
+              </label>
+              <label>
+                <input type="radio" name="q2" value="c" />
+                <span>OLTP menggunakan skema bintang, sedangkan OLAP menggunakan ER-diagram</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend><span>3</span> Mengapa analisis OLAP tidak disarankan dijalankan langsung pada basis data operasional (OLTP)?</legend>
+              <label>
+                <input type="radio" name="q3" value="a" />
+                <span>Karena basis data OLTP tidak dapat menyimpan data angka</span>
+              </label>
+              <label>
+                <input type="radio" name="q3" value="b" />
+                <span>Karena kueri OLAP yang berat dan kompleks akan menurunkan performa transaksi operasional secara drastis</span>
+              </label>
+              <label>
+                <input type="radio" name="q3" value="c" />
+                <span>Karena sistem operasi Windows melarang pemrosesan OLAP pada database relasional</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend><span>4</span> Dalam arsitektur Data Warehouse, peran Operational Data Store (ODS) adalah...</legend>
+              <label>
+                <input type="radio" name="q4" value="a" />
+                <span>Sebagai memori jangka pendek (interim area) untuk membersihkan dan mengintegrasikan data operasional terkini</span>
+              </label>
+              <label>
+                <input type="radio" name="q4" value="b" />
+                <span>Sebagai pengganti permanen dari seluruh Data Warehouse dan Data Mart</span>
+              </label>
+              <label>
+                <input type="radio" name="q4" value="c" />
+                <span>Sebagai antarmuka front-end pelaporan visual bagi manajer puncak</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="quiz-question">
+              <legend><span>5</span> Tiga kategori utama metadata dalam sistem Data Warehouse terdiri dari...</legend>
+              <label>
+                <input type="radio" name="q5" value="a" />
+                <span>Primary metadata, Foreign metadata, dan Candidate metadata</span>
+              </label>
+              <label>
+                <input type="radio" name="q5" value="b" />
+                <span>Business Metadata, Technical Metadata, dan Operational Metadata</span>
+              </label>
+              <label>
+                <input type="radio" name="q5" value="c" />
+                <span>Customer Metadata, Vendor Metadata, dan Financial Metadata</span>
+              </label>
+            </fieldset>
+
+            <div class="quiz-actions">
+              <button class="button button-primary" type="submit">Periksa jawaban <span>→</span></button>
+              <button class="button button-quiet" type="reset" id="resetQuiz">Ulangi kuis</button>
+            </div>
+            <div id="quizResult" class="quiz-result" hidden aria-live="polite"></div>
+          </form>
+        </section>
+
+        <div class="next-lesson-panel">
+          <div>
+            <span class="tag tag-muted">SELANJUTNYA</span>
+            <h3>Pertemuan berikutnya</h3>
+            <p>Materi Bab 2 akan ditambahkan saat materi perkuliahan dari dosen telah diberikan di kelas.</p>
+          </div>
+          <a href="../index.html" class="button button-quiet">Kembali ke daftar <span>→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <a class="brand brand-small" href="../../../index.html">
+        <span class="brand-mark"><span>rb</span></span>
+        <span class="brand-copy"><strong>ruang<span>belajar.</span></strong></span>
+      </a>
+      <p>Belajar satu konsep dalam satu waktu.</p>
+      <span>© <span id="year"></span> Ruang Belajar</span>
+    </footer>
+  </main>
+
+  <div class="image-modal" id="imageModal" aria-hidden="true">
+    <button class="modal-close" id="modalClose" aria-label="Tutup gambar">×</button>
+    <img id="modalImage" src="" alt="Infografik Data Warehousing diperbesar" />
+  </div>
+
+  <script src="../../../assets/js/app.js"></script>
+</body>
+</html>
